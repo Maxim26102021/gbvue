@@ -1,10 +1,29 @@
 <template>
-  <div id="app">
-
+  <div id='app'>
+    <Calculate></Calculate>
   </div>
 </template>
 
-<style lang="scss">
+<script>
+import Calculate from '@/views/Calculate';
+
+export default {
+  name: 'App',
+  components: {
+    Calculate
+  },
+  data() {
+    return {
+
+    }
+  },
+  methods: {
+
+  }
+};
+</script>
+
+<style lang='scss'>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
