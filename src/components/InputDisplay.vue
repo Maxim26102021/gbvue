@@ -16,11 +16,17 @@
                :key='indx' />
     </div>
     <div class='result'>{{ result }}</div>
+    <Numbers @press-num='inpNum'/>
+    <div class='radio'>
+      <p>first input<input v-on:change='changeInput($event.target.value)' type='radio' name='choose' value='operand1'></p>
+      <p>second input<input v-on:change='changeInput($event.target.value)' type='radio' name='choose' value='operand2'></p>
+    </div>
   </div>
 </template>
 
 <script>
 import Buttons from '@/components/Buttons';
+import Numbers from '@/components/Numbers';
 
 export default {
   data() {
@@ -28,14 +34,18 @@ export default {
       operand1: '',
       operand2: '',
       result: '',
+      currentOperand: 'operand1',
       operations: ['+', '-', '*', '/', '%', '**']
     };
   },
   components: {
-    Buttons
+    Buttons,
+    Numbers
   },
   methods: {
     start(event) {
+      this.operand1 = +this.operand1;
+      this.operand2 = +this.operand2;
       if (typeof (this.operand1) == 'string' || typeof (this.operand2) == 'string') {
         this.result = 'Not a Number';
         return;
@@ -60,7 +70,13 @@ export default {
             this.result = Math.pow(this.operand1, this.operand2)
         }
       }
-      console.log(this.result);
+    },
+    changeInput(val) {
+      this.currentOperand = val
+    },
+    inpNum(num) {
+      console.log(num)
+     this[this.currentOperand] += num
     }
   },
   computed: {
