@@ -2,11 +2,11 @@
   <div class='inputs'>
     <label for='operand1' class='box'>
       <p>first operand</p>
-      <input type='text' id='operand1' v-model.number='operand1'>
+      <input type='text' id='operand1' v-model='operand1'>
     </label>
     <label for='operand2' class='box'>
       <p>second operand</p>
-      <input type='text' id='operand2' v-model.number='operand2'>
+      <input type='text' id='operand2' v-model='operand2'>
     </label>
     <div class='btns'>
       <Buttons @custom-event='start'
@@ -16,7 +16,8 @@
                :key='indx' />
     </div>
     <div class='result'>{{ result }}</div>
-    <Numbers @press-num='inpNum'/>
+    <button class='btn' @click='keebordView = !keebordView'>Show Keebord</button>
+    <Numbers @press-num='inpNum' v-show='keebordView'/>
     <div class='radio'>
       <p>first input<input v-on:change='changeInput($event.target.value)' type='radio' name='choose' value='operand1'></p>
       <p>second input<input v-on:change='changeInput($event.target.value)' type='radio' name='choose' value='operand2'></p>
@@ -35,7 +36,8 @@ export default {
       operand2: '',
       result: '',
       currentOperand: 'operand1',
-      operations: ['+', '-', '*', '/', '%', '**']
+      operations: ['+', '-', '*', '/', '%', '**'],
+      keebordView: false
     };
   },
   components: {
@@ -75,8 +77,10 @@ export default {
       this.currentOperand = val
     },
     inpNum(num) {
-      console.log(num)
-     this[this.currentOperand] += num
+      console.log(this[this.currentOperand])
+      console.log(String(num))
+     this[this.currentOperand] += String(num)
+
     }
   },
   computed: {
@@ -96,6 +100,11 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.btn {
+  margin: 0 auto;
+  width: 20%;
 }
 
 .box {
